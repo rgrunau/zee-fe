@@ -29,14 +29,26 @@ export default function Chat() {
     console.log('Form submitted');  // Debugging log
   };
   return (
-      <>
-        <div>
-          <ChatTheadList />
-        </div>
-        <form onSubmit={handleSubmit}>
-          <input name="message" type="text" />
-          <button type="submit">Send</button>
+    <section className="flex flex-col h-[85vh]">
+      <div className="flex-1 p-4">
+        <ChatTheadList />
+      </div>
+      <footer className="w-full bg-gray-100 p-4 z-10">
+        <form onSubmit={handleSubmit} className="flex">
+          <input
+            name="message"
+            type="text"
+            className="flex-1 p-2 border border-gray-300 rounded-md"
+            placeholder="Type your message..."
+          />
+          <button
+            type="submit"
+            className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          >
+            Send
+          </button>
         </form>
-      </>
+      </footer>
+    </section>
     )
 }

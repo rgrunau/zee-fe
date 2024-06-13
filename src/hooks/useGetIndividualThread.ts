@@ -29,11 +29,11 @@ interface Message {
   thread_id: string;
 }
 
-interface ReturnMessageContent {
-  message: Message[];
+interface Messages {
+  messages: Message[];  // Ensure this matches the structure of the API response
 }
 
-const getIndividualThread = async (threadId: string): Promise<ReturnMessageContent> => { 
+const getIndividualThread = async (threadId: string): Promise<Messages[]> => { 
   const url = `http://127.0.0.1:8000/messages/${threadId}`;
   const options = {
     method: 'GET',
@@ -41,14 +41,15 @@ const getIndividualThread = async (threadId: string): Promise<ReturnMessageConte
       'Content-Type': 'application/json',
     },
   };
-  return await makeRequest<ReturnMessageContent>(url, options);
+  return await makeRequest<Messages[]>(url, options);
 };
 
-export const useGetIndividualThread = (): ReturnType<typeof useQuery> => {
+export const useGetIndividualThread = () => {
   const { id } = useParams();
-  const threadId = id;
-  if (!threadId) {
-    console.error('No threadId');
-  }
-  return useQuery<ReturnMessageContent, Error>({ queryKey: ['individual-thread', threadId], queryFn: () => getIndividualThread(threadId as string)});
+  const threadId = id as string;
+  return useQuery<Messages[], Error>({
+    queryKey: ['individual-thread', threadId],
+    queryFn: () => getIndividualThread(threadId),
+    enabled: !!threadId,  // Ensure the query only runs if threadId is available
+  });
 };

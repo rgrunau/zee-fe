@@ -16,22 +16,26 @@ export default function RootLayout() {
       routerReplace={(to) => navigate(to, { replace: true })}
       publishableKey={PUBLISHABLE_KEY}
     >
-      <header className="header">
-        <div>
-          <div>
-            <p>Clerk + React + React Router App</p>
-          </div>
-          <SignedIn>
-            <UserButton afterSignOutUrl='/sign-in' />
-          </SignedIn>
-          <SignedOut>
-            <Link to="/sign-in">Sign In</Link>
-          </SignedOut>
-        </div>
-      </header>
-      <main>
-        <Outlet />
-      </main>
+      <div className='w-full h-screen flex flex-col items-center justify-start bg-gray-900 text-gray-50'>
+        <header className="header w-full flex items-center justify-between p-2 h-[15vh]">
+          <div className='w-1/2'>
+            <div>
+              <p>ZEE</p>
+            </div>
+            </div>
+            <div className='w-1/2 flex items-center justify-end'>
+              <SignedIn>
+                <UserButton afterSignOutUrl='/sign-in' />
+              </SignedIn>
+              <SignedOut>
+                <Link to="/sign-in">Sign In</Link>
+              </SignedOut>
+            </div>
+        </header>
+        <main className='w-full h-full'>
+          <Outlet />
+        </main>
+      </div>
     </ClerkProvider>
   )
 }
