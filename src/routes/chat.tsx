@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useSendMessageToThread } from "../hooks/useSendMessageToThread"
+import ChatTheadList from "../components/chat/chat-thread";
 
 
 export default function Chat() { 
@@ -30,12 +31,12 @@ export default function Chat() {
   return (
       <>
         <div>
-          <h1>Chat</h1>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <input name="message" type="text" />
-        <button type="submit">Send</button>
-      </form>
+          <ChatTheadList />
+        </div>
+        <form onSubmit={handleSubmit}>
+          <input name="message" type="text" />
+          <button type="submit">Send</button>
+        </form>
       </>
     )
 }
