@@ -30,10 +30,10 @@ export default function Chat() {
   };
   return (
     <section className="flex flex-col h-[85vh]">
-      <div className="flex-1 p-4">
+      <div className="flex-1 mt-16 mb-16 overflow-y-auto p-4">
         <ChatTheadList />
       </div>
-      <footer className="w-full bg-gray-100 p-4 z-10">
+      <footer className="fixed bottom-0 left-0 w-full bg-gray-100 p-4">
         <form onSubmit={handleSubmit} className="flex">
           <input
             name="message"

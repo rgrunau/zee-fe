@@ -17,7 +17,7 @@ export default function RootLayout() {
       publishableKey={PUBLISHABLE_KEY}
     >
       <div className='w-full h-screen flex flex-col items-center justify-start bg-gray-900 text-gray-50'>
-        <header className="header w-full flex items-center justify-between p-2 h-[15vh]">
+        <header className="header w-full flex items-center justify-between p-2 h-[5vh]">
           <div className='w-1/2'>
             <div>
               <p>ZEE</p>

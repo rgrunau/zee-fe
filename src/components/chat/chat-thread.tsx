@@ -1,33 +1,19 @@
-import { useGetIndividualThread } from "../../hooks/useGetIndividualThread"
+import { useGetIndividualThread } from '../../hooks/useGetIndividualThread';
+import ThreadMessage from './thread-message';
 
-export default function ChatTheadList() { 
-  const {data, isLoading} = useGetIndividualThread()
-  console.log('Data:', data);  // Debugging log
+const ChatThreadList = () => {
+  const { data, error, isLoading } = useGetIndividualThread();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
-    <>
-      {isLoading && <p>Loading...</p>}
-      {!isLoading && data && (
-        <div className="w-full flex flex-col">
-          {data.map((message: any) => (
-            <div
-              key={message.id}
-              className={`${
-                message.role === "user" ? "justify-end" : "justify-start"
-              } flex`}
-            >
-              <div
-                className={`${
-                  message.role === "user"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200 text-black"
-                } p-2 rounded-md`}
-              >
-                {message.id}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-      </>
-    )
-}
+    <div className="flex-1 overflow-y-auto`">
+      {data?.map((msg) => (
+        <ThreadMessage key={msg.id} message={msg} />
+      ))}
+    </div>
+  );
+};
+
+export default ChatThreadList;

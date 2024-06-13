@@ -12,7 +12,7 @@ interface Content {
   type: string;
 }
 
-interface Message {
+export interface Message {
   id: string;
   assistant_id: string;
   attachments: any[];  // You can specify a more specific type if known
@@ -29,11 +29,7 @@ interface Message {
   thread_id: string;
 }
 
-interface Messages {
-  messages: Message[];  // Ensure this matches the structure of the API response
-}
-
-const getIndividualThread = async (threadId: string): Promise<Messages[]> => { 
+const getIndividualThread = async (threadId: string): Promise<Message[]> => { 
   const url = `http://127.0.0.1:8000/messages/${threadId}`;
   const options = {
     method: 'GET',
@@ -41,13 +37,13 @@ const getIndividualThread = async (threadId: string): Promise<Messages[]> => {
       'Content-Type': 'application/json',
     },
   };
-  return await makeRequest<Messages[]>(url, options);
+  return await makeRequest<Message[]>(url, options);
 };
 
 export const useGetIndividualThread = () => {
   const { id } = useParams();
   const threadId = id as string;
-  return useQuery<Messages[], Error>({
+  return useQuery<Message[], Error>({
     queryKey: ['individual-thread', threadId],
     queryFn: () => getIndividualThread(threadId),
     enabled: !!threadId,  // Ensure the query only runs if threadId is available
